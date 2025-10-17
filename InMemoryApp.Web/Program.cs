@@ -1,3 +1,4 @@
+using InMemoryApp.Web.Services;
 using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //In-Memory Cache servisini ekliyoruz
 builder.Services.AddMemoryCache();
-
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
+builder.Services.AddScoped<CacheService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InMemoryApp.Web.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace InMemoryApp.Web.Controllers
@@ -7,19 +8,26 @@ namespace InMemoryApp.Web.Controllers
     public class ProductController : Controller
     {
         private IMemoryCache _memoryCache;
-        public ProductController(IMemoryCache memoryCache)
+        private CacheService _cacheService;
+
+        public ProductController(IMemoryCache memoryCache, CacheService cacheOptions)
         {
-                _memoryCache = memoryCache;
+            _memoryCache = memoryCache;
+            _cacheService = cacheOptions;
         }
         public IActionResult Index()
         {
-            _memoryCache.Set<string>("zaman", DateTime.Now.ToString());
+
+            if (!_memoryCache.TryGetValue("zaman", out string? zamanCache))
+            {
+                _cacheService.Set("zaman", DateTime.Now.ToString());
+            }
             return View();
         }
 
         public IActionResult Show()
         {
-            ViewBag.Zaman =  _memoryCache.Get<string>("zaman");
+            ViewBag.Zaman = _memoryCache.Get<string>("zaman");
             return View();
         }
     }
