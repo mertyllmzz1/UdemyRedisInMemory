@@ -20,14 +20,18 @@ namespace InMemoryApp.Web.Controllers
 
             if (!_memoryCache.TryGetValue("zaman", out string? zamanCache))
             {
-                _cacheService.Set("zaman", DateTime.Now.ToString());
+                _cacheService.Set("zaman", DateTime.Now.ToString(),CacheItemPriority.Normal);
             }
             return View();
         }
 
         public IActionResult Show()
         {
-            ViewBag.Zaman = _memoryCache.Get<string>("zaman");
+            _memoryCache.TryGetValue("zaman", out string? zamanCache);
+            _memoryCache.TryGetValue("callback", out string? callback);
+            ViewBag.Zaman = zamanCache;
+            ViewBag.CallBack = callback;
+
             return View();
         }
     }
