@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 //In-Memory Cache servisini ekliyoruz
 builder.Services.AddMemoryCache();
 builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
-builder.Services.AddScoped<CacheService>();
+builder.Services.AddScoped<ICacheService,CacheService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

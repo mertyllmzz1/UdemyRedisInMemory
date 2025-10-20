@@ -8,9 +8,9 @@ namespace InMemoryApp.Web.Controllers
     public class ProductController : Controller
     {
         private IMemoryCache _memoryCache;
-        private CacheService _cacheService;
+        private ICacheService _cacheService;
 
-        public ProductController(IMemoryCache memoryCache, CacheService cacheOptions)
+        public ProductController(IMemoryCache memoryCache, ICacheService cacheOptions)
         {
             _memoryCache = memoryCache;
             _cacheService = cacheOptions;

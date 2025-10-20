@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 namespace InMemoryApp.Web.Services
 {
 
-    public class CacheService
+    public class CacheService: ICacheService
     {
         private readonly IMemoryCache _cache;
         private readonly CacheSettings _cacheOptions;
